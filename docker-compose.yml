@@ -1,0 +1,32 @@
+version: "2"
+
+services:
+  jenkins:
+    container_name: jenkins
+    build:
+      dockerfile: JenkinsDockerfile
+    restart: always
+    ports:
+      - "8080:8080"
+      - "50000:50000"
+    volumes:
+      - jenkins_home:/var/jenkins_home
+  dev-server:
+    container_name: dev-server
+    build:
+      dockerfile: DevServerDockerfile
+    restart: always
+    command: "tail -f /dev/null"
+  pro-server:
+    container_name: pro-server
+    build:
+      dockerfile: ProServerDockerfile
+    restart: always
+    ports:
+      - "22:22"
+    command: "/usr/sbin/sshd -D"
+
+volumes:
+  jenkins_home:
+    driver: local
+

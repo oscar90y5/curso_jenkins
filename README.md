@@ -13,9 +13,10 @@ Para ello, aprenderemos a:
 1. Clonarse el repositorio en nuestra máquina.
 2. Ejecutar el docker-compose.yml. Para ello ejecutar `docker compose up -d` (o `docker-compose up -d` para versiones antiguas de Docker).
 3. Entrar en la página de jenkins y seguir la instalación:
-   1. Al comenzar nos pedirá un token. Lo encontraremos en los logs del contenedor. Para acceder, ejecutamos `docker logs jenkins`.
-   2. Seleccionamos la instalación con los plugins por defecto "Install suggested plugins".
-   3. Añadimos los datos que nos pide.
+   1. Accedemos a la url http://localhost:8080/.
+   2. Al comenzar nos pedirá un token. Lo encontraremos en los logs del contenedor. Para acceder, ejecutamos `docker logs jenkins`.
+   3. Seleccionamos la instalación con los plugins por defecto "Install suggested plugins".
+   4. Añadimos los datos que nos pide.
 
 ## Configuración del proyecto en GitHub
 Crearemos un repositorio propio en GitHub para poder subir nuestro proyecto de Python. Además, configuraremos un token que nos permita hacer commits al repositorio.
@@ -83,16 +84,17 @@ git push origin main
 
 ## Configuración del servidor de producción
 Nos bajaremos la versión actual del proyecto y dejaremos preparado el script que realiza el despliegue.
-1. Accedemos al directorio donde queremos desplegar el proyecto. Por ejemplo, `/opt`. Para ello, ejecutamos el comando `cd /opt`.
-2. Nos bajamos el proyecto por primera vez ejecutando el comando `git clone <url del proyecto>`.
-3. En el home del usuario, `/home/test/`, añadimos el script `deploy.sh` encargado de desplegar la aplicación las siguientes veces:
+1. Accedemos al servidor a través de ssh con el comando `ssh test@localhost`. La contraseña es `test`.
+2. Accedemos al directorio donde queremos desplegar el proyecto. Por ejemplo, `/opt`. Para ello, ejecutamos el comando `cd /opt`.
+3. Nos bajamos el proyecto por primera vez ejecutando el comando `git clone <url del proyecto>`.
+4. Ejecutamos el script `main.py` para comprobar el funcionamiento de la versión inicial.
+5. En el home del usuario, `/home/ubuntu/`, añadimos el script `deploy.sh` encargado de desplegar la aplicación las siguientes veces:
 ```shell
 #!/bin/bash
-cd /opt/python_project
+cd /opt/<nombre del repositorio>
 git pull origin main
 ```
-3. Le asignamos permisos de ejecución con el comando `chmod +x deploy.sh`.
-4. Ejecutamos el script `main.py` para comprobar el funcionamiento de la versión inicial.
+6. Le asignamos permisos de ejecución con el comando `chmod +x deploy.sh`.
 
 ## Configuración del despliegue desde Jenkins
 Modificaremos el `Jenkinsfile` para que despliegue la aplicación cuando se commitee algo en main. Por último, comprobaremos el flujo completo del pipeline realizando una modificación en el proyecto de Python.

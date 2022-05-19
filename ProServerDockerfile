@@ -6,7 +6,11 @@ RUN apt -y install openssh-server
 
 RUN apt -y install git
 
+RUN apt -y install vim
+
 RUN useradd -rm -d /home/ubuntu -s /bin/bash -g root -G sudo -u 1000 test 
+
+RUN chown test /opt
 
 RUN  echo 'test:test' | chpasswd
 

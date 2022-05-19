@@ -35,14 +35,16 @@ git push origin main
 ```
 
 ## Configuramos el servidor de producción:
-1. Nos bajamos el proyecto por primera vez ejecutando el comando `git clone <url del proyecto>`.
-2. Añadimos el script 'deploy.sh' encargado de desplegar la aplicación las siguientes veces:
+1. Accedemos al directorio donde queremos desplegar el proyecto. Por ejemplo, `/opt`. Para ello, ejecutamos el comando `cd /opt`.
+2. Nos bajamos el proyecto por primera vez ejecutando el comando `git clone <url del proyecto>`.
+3. En el home del usuario, añadimos el script 'deploy.sh' encargado de desplegar la aplicación las siguientes veces:
 ```shell
 #!/bin/bash
 cd /opt/<nombre del proyecto>
-git pull <url del proyecto> main
+git pull origin main
 ```
-3. Ejecutamos el main.py para comprobar el funcionamiento de la versión inicial.
+3. Le asignamos permisos de ejecución con el comando `chmod +x deploy.sh`.
+4. Ejecutamos el main.py para comprobar el funcionamiento de la versión inicial.
 
 ## Configurar la tarea base:
 1. Clickamos en Nueva Tarea.
